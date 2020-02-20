@@ -1,0 +1,4 @@
+---
+_fre_package_list:
+- haproxy
+- python2-httpie

@@ -1,0 +1,5 @@
+---
+- name: Install packages listed on vars
+  yum:
+    name: "{{ _fre_package_list }}"
+    state: latest

@@ -1,0 +1,24 @@
+---
+- name: configuration
+  hosts: all
+  gather_facts: true
+  become: true
+  tasks:
+  - name: Process common configuration
+    include_role:
+      name: base-config
+
+  - name: Configure Frontend
+    include_role:
+      name: lb-tier
+    when: "'frontends' in group_names"
+
+  - name: Configure App Servers
+    include_role:
+      name: app-tier
+    when: "'apps' in group_names"
+
+  - name: Configure AppDB Servers
+    include_role:
+      name: db-tier
+    when: "'appdbs' in group_names"

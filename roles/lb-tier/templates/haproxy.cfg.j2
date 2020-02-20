@@ -1,3 +1,4 @@
+# {{ ansible_managed }}
 global
   log /dev/log  local0
   log /dev/log  local1 notice
@@ -25,5 +26,6 @@ backend app-servers
     mode http
     balance roundrobin
     option forwardfor
-    server app1 app1.1315.internal:8080 cookie app1 check
-    server app2 app2.1315.internal:8080 cookie app2 check
+{% for host in groups.apps %}
+    server {{ host }} {{ hostvars[host].ansible_facts.default_ipv4.address }}:8080 cookie {{ host }} check
+{% endfor %}
